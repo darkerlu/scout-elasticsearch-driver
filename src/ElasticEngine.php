@@ -311,6 +311,7 @@ class ElasticEngine extends Engine
 
         $models = $query
             ->whereIn($scoutKeyName, $ids)
+            ->orderByRaw(sprintf("FIND_IN_SET(id, '%s')", join(',', $ids)))
             ->get($columns)
             ->keyBy($scoutKeyName);
 
